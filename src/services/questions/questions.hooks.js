@@ -1,15 +1,19 @@
-const { authenticate } = require('@feathersjs/authentication').hooks;
+const { authenticate } = require('../../authentication-anonymous').hooks;
+const uuidv4 = require('uuid/v4');
 
-const processMessage = require('../../hooks/process-message');
+const uuidHook = context => {
+  context.data.question.questionId = uuidv4();
 
-const populateUser = require('../../hooks/populate-user');
+  // Best practise, hooks should always return the context
+  return context;
+};
 
 module.exports = {
   before: {
-    all: [],
+    all: [authenticate('anonymous')],
     find: [],
     get: [],
-    create: [],
+    create: [ uuidHook ],
     update: [],
     patch: [],
     remove: []

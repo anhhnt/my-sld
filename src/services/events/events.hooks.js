@@ -1,15 +1,14 @@
 const { authenticate } = require('@feathersjs/authentication').hooks;
 
-const processMessage = require('../../hooks/process-message');
-
-const populateUser = require('../../hooks/populate-user');
+const idGen = require('../../hooks/idgen');
+const isAdmin = require('../../hooks/is-admin');
 
 module.exports = {
   before: {
     all: [],
     find: [],
     get: [],
-    create: [],
+    create: [ authenticate('jwt'), isAdmin(), idGen() ],
     update: [],
     patch: [],
     remove: []

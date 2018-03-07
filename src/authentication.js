@@ -1,6 +1,7 @@
 const authentication = require('@feathersjs/authentication');
 const jwt = require('@feathersjs/authentication-jwt');
 const local = require('@feathersjs/authentication-local');
+const anonymous = require('./authentication-anonymous');
 
 
 module.exports = function (app) {
@@ -24,4 +25,5 @@ module.exports = function (app) {
       ]
     }
   });
+  app.configure(anonymous);
 };

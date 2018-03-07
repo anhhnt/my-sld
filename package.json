@@ -23,14 +23,17 @@
   },
   "scripts": {
     "test": "npm run eslint && npm run coverage",
-    "coverage": "npm run clean && NODE_ENV=test istanbul cover node_modules/mocha/bin/_mocha -- test/ --recursive --exit",
+    "coverage": "npm run clean && set NODE_ENV=test istanbul cover node_modules/mocha/bin/_mocha -- test/ --recursive --exit",
     "eslint": "eslint src/. test/. --config .eslintrc.json --fix",
     "start": "node src/",
     "clean": "shx rm -rf test/data/",
-    "mocha": "npm run clean && NODE_ENV=test mocha test/ --recursive --exit"
+    "mocha": "npm run clean && set NODE_ENV=test mocha test/ --recursive --exit",
+    "watch": "mocha test/ --timeout 15000 --recursive --watch",
+    "tmp": "mocha test/ --recursive --exit"
   },
   "dependencies": {
     "@feathersjs/authentication": "^2.0.1",
+    "@feathersjs/authentication-client": "^1.0.2",
     "@feathersjs/authentication-jwt": "^2.0.0",
     "@feathersjs/authentication-local": "^1.0.2",
     "@feathersjs/configuration": "^1.0.1",
@@ -38,11 +41,14 @@
     "@feathersjs/express": "^1.1.2",
     "@feathersjs/feathers": "^3.0.2",
     "@feathersjs/socketio": "^3.0.1",
+    "@feathersjs/socketio-client": "^1.1.0",
     "compression": "^1.7.1",
     "cors": "^2.8.4",
+    "feathers-hooks-common": "^4.8.0",
     "feathers-nedb": "^3.0.0",
     "helmet": "^3.9.0",
     "nedb": "^1.8.0",
+    "passport-custom": "^1.0.5",
     "serve-favicon": "^2.4.5",
     "winston": "^2.4.0"
   },
