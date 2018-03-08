@@ -12,9 +12,9 @@ const paperStyle = {
   lineHeight: '50px',
 };
 
-export default ({ evenCode, eventCodeChange, eventCodeSubmit }) => (
+export default ({ login, loginChange, eventCodeSubmit, logInAsAdmin }) => (
   <div>
-    <TextField floatingLabelText="Enter event code" value={evenCode} onChange={eventCodeChange} />
+    <TextField floatingLabelText="Enter event code" value={login.evenCode} onChange={loginChange('eventCode')} />
     <br />
     <RaisedButton label="Access" primary={true} onClick={eventCodeSubmit}/>
     <br />
@@ -24,11 +24,11 @@ export default ({ evenCode, eventCodeChange, eventCodeSubmit }) => (
     <br />
     Log in as event manager
     <br />
-    <TextField type="email" floatingLabelText="Email" />
+    <TextField type="email" floatingLabelText="Email" value={login.email} onChange={loginChange('email')}/>
     <br />
-    <TextField hintText="Password Field" floatingLabelText="Password" type="password" />
+    <TextField hintText="Password Field" floatingLabelText="Password" value={login.password} onChange={loginChange('password')} type="password" />
     <br />
-    <RaisedButton label="Login" primary={true} />
+    <RaisedButton label="Login" primary={true} onClick={logInAsAdmin}/>
     <br />
     <br />
     <RaisedButton label="Signup and login" primary={true} />

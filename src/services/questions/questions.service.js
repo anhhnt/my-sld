@@ -20,6 +20,18 @@ module.exports = function (app) {
       });
       return events.data.length > 0 ? events.data[0] : null;
     },
+    async find({ query }) {
+      const eventCode = query.eventCode;
+      assert.ok(eventCode, 'eventCode is mandatory');
+      const eventService = app.service('events');
+      const events = await eventService.find({
+        query: {
+          eventCode: eventCode,
+          $select: ['_id', 'questions']
+        }
+      });
+      return events.data.length > 0 ? events.data[0] : null;
+    },
     async create(data, params) {
       // console.log('              Creating question with content: ', data);
       const event = await this.findEventWithCode(data.eventCode);
