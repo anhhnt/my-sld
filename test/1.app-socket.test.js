@@ -117,8 +117,10 @@ describe(' "Websocket transport test"', () => {
 
     let payload = await client.passport.verifyJWT(jwtToken);
     assert.equal(payload.sub, 'anonymous');
+  });
 
-    newQuestion = await client.service('questions').create({
+  it ('Create question', async () => {
+    let newQuestion = await client.service('questions').create({
       eventCode: eventCode,
       question: {
         content: 'A question from a REST client'
