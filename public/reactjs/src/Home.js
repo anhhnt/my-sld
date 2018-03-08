@@ -9,34 +9,28 @@ const paperStyle = {
   margin: 20,
   textAlign: 'center',
   display: 'inline-block',
-  lineHeight: '50px'
+  lineHeight: '50px',
 };
-export default () =>
+
+export default ({ evenCode, eventCodeChange, eventCodeSubmit }) => (
   <div>
-    <TextField
-      floatingLabelText="Enter event code"
-    />
-    <br/>
-    <RaisedButton label="Access" primary={true} />
-    <br/>
-    <Paper style={paperStyle} zDepth={1} circle={true} >
+    <TextField floatingLabelText="Enter event code" value={evenCode} onChange={eventCodeChange} />
+    <br />
+    <RaisedButton label="Access" primary={true} onClick={eventCodeSubmit}/>
+    <br />
+    <Paper style={paperStyle} zDepth={1} circle={true}>
       Or
     </Paper>
-    <br/>
+    <br />
     Log in as event manager
-    <br/>
-    <TextField
-      type="email"
-      floatingLabelText="Email"
-    />
-    <br/>
-    <TextField
-      hintText="Password Field"
-      floatingLabelText="Password"
-      type="password"
-    />
-    <br/>
+    <br />
+    <TextField type="email" floatingLabelText="Email" />
+    <br />
+    <TextField hintText="Password Field" floatingLabelText="Password" type="password" />
+    <br />
     <RaisedButton label="Login" primary={true} />
-    <br/><br/>
+    <br />
+    <br />
     <RaisedButton label="Signup and login" primary={true} />
   </div>
+);
