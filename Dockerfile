@@ -4,4 +4,7 @@ RUN mkdir /my-sld
 
 COPY * /my-sld/
 
-RUN cd /my-sld/ && yarn install && pwd && ls && yarn start
+RUN cd /my-sld/ && yarn install && pwd && ls
+
+CMD [ "cd", "/my-sld" ]
+CMD [ "yarn", "start" ]
