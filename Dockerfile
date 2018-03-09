@@ -6,6 +6,6 @@ COPY . /my-sld/
 
 RUN cd /my-sld/ && yarn install && pwd && ls -la
 
-RUN cd /my-sld/react/ && yarn install && pwd && ls -la
+RUN cd /my-sld/react/ && yarn install && yarn build && pwd && ls -la
 
 EXPOSE 3030 443
