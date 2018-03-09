@@ -30,7 +30,7 @@ app.use(express.urlencoded({ extended: true }));
 //app.use(favicon(path.join(app.get('public'), 'favicon.ico')));
 // Host the public folder
 const publicPath = app.get('react/public');
-consol.log(publicPath):
+console.log(publicPath):
 app.use('/', express.static(publicPath));
 
 // Set up Plugins and providers
