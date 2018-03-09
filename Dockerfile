@@ -1,7 +1,7 @@
 FROM node:8-alpine
 
-CMD "mkdir /my-sld"
+RUN mkdir /my-sld
 
 COPY * /my-sld/
 
-CMD "cd /my-sld/ && yarn install && pwd && ls && yarn start"
+RUN cd /my-sld/ && yarn install && pwd && ls && yarn start
