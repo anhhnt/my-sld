@@ -4,8 +4,8 @@ RUN mkdir /my-sld
 
 COPY . /my-sld/
 
-RUN cd /my-sld/ && yarn install && pwd && ls -la
+RUN cd /my-sld/ && ls -la && yarn install && pwd && ls -la
 
-RUN cd /my-sld/react/ && yarn install && yarn build && pwd && ls -la
+RUN cd /my-sld/react/ && ls -la && yarn install && export NODE_ENV=production && yarn build && pwd && ls -la
 
 EXPOSE 3030 443
