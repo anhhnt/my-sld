@@ -43,7 +43,7 @@ class App extends Component {
   }
 
   connect() {
-    let socket = io(`http://localhost:${port}`, {
+    let socket = io(window.location.origin, {
       path: `/event/${this.state.eventCode}`
     });
     client = feathers();
