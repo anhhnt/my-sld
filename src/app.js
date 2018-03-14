@@ -29,11 +29,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 //app.use(favicon(path.join(app.get('public'), 'favicon.ico')));
 // Host the public folder
-const publicPath = app.get('react/public');
-console.log(publicPath):
-app.use('/', express.static(publicPath));
+app.use('/', express.static(app.get('public')));
 
 // Set up Plugins and providers
+app.configure(express.rest());
 app.configure(socketio({
   path: '/event/'
 }, function(io) {
