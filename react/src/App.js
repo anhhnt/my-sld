@@ -3,7 +3,7 @@ import socketio from '@feathersjs/socketio-client';
 import auth from '@feathersjs/authentication-client';
 import io from 'socket.io-client';
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Link, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Link, Route, Redirect } from 'react-router-dom';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Home from './Home';
 import Event from './Event';
@@ -43,8 +43,8 @@ class App extends Component {
   }
 
   connect() {
-    let socket = io(window.location.origin, {
-      path: `/event/${this.state.eventCode}`
+    let socket = io('http://localhost:3030', {
+      path: `/event/${this.state.login.eventCode}`
     });
     client = feathers();
 
@@ -102,24 +102,24 @@ class App extends Component {
   }
 
   async componentDidMount() {
-    this.getClient().authenticate();
-    const jwt = await this.getClient().passport.getJWT();
-    if (jwt) {
-      const payload = await client.passport.verifyJWT(jwt);
-      this.setState({
-        jwt,
-        adminId: payload.adminId
-      })
-      if (payload.adminId) {
-        const { data } = await this.getClient().service('events').find({
-          adminId: payload.adminId
-        });
-
-        this.setState({
-          events: data
-        })
-      }
-    }
+    // this.getClient().authenticate();
+    // const jwt = await this.getClient().passport.getJWT();
+    // if (jwt) {
+    //   const payload = await client.passport.verifyJWT(jwt);
+    //   this.setState({
+    //     jwt,
+    //     adminId: payload.adminId
+    //   })
+    //   if (payload.adminId) {
+    //     const { data } = await this.getClient().service('events').find({
+    //       adminId: payload.adminId
+    //     });
+    //
+    //     this.setState({
+    //       events: data
+    //     })
+    //   }
+    // }
   }
 
   render() {
@@ -130,29 +130,30 @@ class App extends Component {
             <header className="App-header">
               <img src={logo} className="App-logo" alt="logo" />
             </header>
-            {this.state.jwt ? (
+            <Route exact path="/" render={props => (
+              (!this.state.jwt || !this.state.login) ? (<Home
+                login={this.state.login}
+                loginChange={this.updateLogin}
+                eventCodeSubmit={this.joinEvent}
+                logInAsAdmin={this.logInAsAdmin}
+              />) : (
+                <Redirect to={`/event/${this.state.login.eventCode}`} />
+              )
+            )} />
+            <Route path="/event/:eventCode" render={props => (
               <div>
                 <Event
                   isAdmin={!!this.state.adminId}
                   events={this.state.events}
                   questions={this.state.questions}
                 />
-                <Route path="/event/:eventCode" render={props => (
-                  <Question
-                    {...props}
-                    isAdmin={!!this.state.adminId}
-                    client={this.getClient()}
-                  />
-                )}/>
+                <Question
+                  {...props}
+                  isAdmin={!!this.state.adminId}
+                  client={this.getClient()}
+                />
               </div>
-            ) : (
-              <Home
-                login={this.state.login}
-                loginChange={this.updateLogin}
-                eventCodeSubmit={this.joinEvent}
-                logInAsAdmin={this.logInAsAdmin}
-              />
-            )}
+            )} />
           </div>
         </MuiThemeProvider>
       </Router>

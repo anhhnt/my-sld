@@ -27,7 +27,7 @@ export default ({ login, loginChange, eventCodeSubmit, logInAsAdmin }) => (
       onChange={loginChange('eventCode')}
     />
     <br />
-    <RoutingButton/>
+    <RaisedButton label="Access" primary={true} onClick={eventCodeSubmit} />
     <br />
     <Paper style={paperStyle} zDepth={1} circle={true}>
       Or
