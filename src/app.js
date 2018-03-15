@@ -39,7 +39,10 @@ app.configure(socketio({
   // Registering Socket.io middleware
   io.use(function (socket, next) {
     // Exposing a request property to services and hooks
-    socket.feathers.eventCode = socket.request.url.match(/\/event\/([a-z0-9]*)\//)[1];
+    const matches = socket.request.url.match(/\/event\/([a-z0-9]*)\//);
+    if (matches.length > 1) {
+      socket.feathers.eventCode = matches[1];
+    }
     next();
   });
 }));
