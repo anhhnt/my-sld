@@ -35,9 +35,13 @@ class App extends Component {
     this.logInAsAdmin = this.logInAsAdmin.bind(this);
   }
 
-  getClient() {
+  async getClient () {
     if (!client) {
       this.connect();
+      await client.authenticate({
+        strategy: 'anonymous'
+      });
+      return client;
     }
     return client;
   }
@@ -66,9 +70,7 @@ class App extends Component {
   }
 
   async joinEvent () {
-    await this.getClient().authenticate({
-      strategy: 'anonymous'
-    });
+
     let jwt = await this.getClient().passport.getJWT();
 
     this.setState({
