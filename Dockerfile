@@ -10,4 +10,5 @@ RUN cd /my-sld/react/ && ls -la && yarn install && export NODE_ENV=production &&
 
 EXPOSE 3030 443
 
-CMD [ "npm", "start" ]
+CMD cd /my-sld/
+CMD npm start
